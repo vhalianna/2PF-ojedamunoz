@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <title>Sistema de carga de certificados</title>
+</head>
+<body>
+    <h1>Sistema de carga de certificados</h1>
+
+    <form id="formularioCertificados">
+        <label for="apellido">Apellido:</label>
+        <input type="text" id="apellido" placeholder="Ingrese el apellido">
+
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre" placeholder="Ingrese el nombre">
+
+        <label for="dni">DNI:</label>
+        <input type="text" id="dni" placeholder="Ingrese el DNI">
+
+        <label for="tipoCertificado">Tipo de certificado:</label>
+        <select id="tipoCertificado">
+            <option value="aprobacion">Aprobación</option>
+            <option value="exposicion">Exposición</option>
+            <option value="asistencia">Asistencia</option>
+        </select>
+
+        <button type="button" id="btnCargarCertificado">Cargar Certificado</button>
+        <button type="button" id="btnInforme">Informe</button>
+    </form>
+
+    <div id="resultado"></div>
+    <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
+        <symbol id="check-circle-fill" viewBox="0 0 16 16">
+          <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+        </symbol>
+    </svg>
+    <div class="alert alert-success d-flex align-items-center" role="alert" id="successAlert" style="display: none;">
+       <svg class="bi flex-shrink-0 me-2" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
+       <div>
+       ¡Bien hecho! Has cargado un certificado.
+       </div>
+    </div>           
+    <div id="cantidadCertificadosContainer"></div>
+    <div id="certificadosContainer"></div>
+
+    <footer>
+        Hecho por <a href="https://www.linkedin.com/in/valeriaojedam/">Vhalianna</a> &#10084;
+    </footer>
+    
+    <script src="miarchivo.js"></script>
+</body>
+</html>
+
+
