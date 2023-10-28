@@ -34,22 +34,11 @@ select {
     box-sizing: border-box; /* para que el ancho y alto del campo incluyan relleno y borde */
 }
 
-button {
-    display: block;
-    width: 100%;
-    padding: 10px;
-    margin-top: 20px;
-    background-color: #4CAF50;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-}
-
-button:hover {
-    background-color: #45a049;
-}
-
+.button-container {
+    text-align: center; /* Centra horizontalmente los elementos dentro del contenedor */
+    margin-top: 20px; /* Espacio en la parte superior para separar los botones del resto del contenido */
+  }
+  
 #resultado {
     margin-top: 20px;
     padding: 10px;
@@ -100,3 +89,4 @@ footer a {
 footer a:hover {
     text-decoration: underline;
 }
+

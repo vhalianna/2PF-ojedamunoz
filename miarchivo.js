@@ -45,36 +45,22 @@ function validarCarga() {
     resultadoElement.textContent = "Por favor, complete todos los campos antes de cargar el certificado.";
     return;
   }
-
   // Validar que el DNI tenga exactamente 8 cifras numéricas
   if (dni.length !== 8 || !/^[0-9]+$/.test(dni)) {
     resultadoElement.textContent = "El DNI debe contener 8 cifras numéricas.";
     return;
   }
-
   // Crear una instancia de la clase Persona con los datos ingresados
   const persona = new Persona(apellido, nombre, dni);
-
   // Cargar el certificado en el array
   cargarCertificado(tipoCertificado, persona);
-
   // Limpiar los campos de entrada
   apellidoInput.value = "";
   nombreInput.value = "";
   dniInput.value = "";
   tipoCertificadoInput.selectedIndex = 0; // Restablecer la selección al primer índice (opción predeterminada)
-
   // Mostrar los certificados cargados
   mostrarCertificados();
-
-  // Mostrar el alerta de éxito
-  const successAlert = document.getElementById("successAlert");
-  successAlert.style.display = "block";
-
-  // Ocultar el alerta después de 3 segundos (3000 milisegundos)
-  setTimeout(function() {
-    successAlert.style.display = "none";
-  }, 3000);
 }
 
 function cargarCertificado(tipo, persona) {
@@ -83,6 +69,15 @@ function cargarCertificado(tipo, persona) {
 
   // Guardar los certificados en el almacenamiento local
   localStorage.setItem("certificados", JSON.stringify(certificados));
+ // Mostrar el alerta
+ mostrarSuccessAlert();
+}
+
+// Función para mostrar el alerta de éxito
+function mostrarSuccessAlert() {
+  const successAlert = document.getElementById("successAlert");
+  successAlert.style.display = "block";
+
 }
 
 // Función para contar la cantidad de certificados cargados
@@ -104,4 +99,5 @@ function mostrarCertificados() {
     certificadoElement.textContent = `Certificado ${index + 1}: ${certificado.tipo}, ${certificado.persona.apellido} ${certificado.persona.nombre}, DNI: ${certificado.persona.dni}`;
     certificadosContainer.appendChild(certificadoElement);
   });
+  
 }
