@@ -50,6 +50,11 @@ function validarCarga() {
     resultadoElement.textContent = "El DNI debe contener 8 cifras numéricas.";
     return;
   }
+  // Validar que el nombre y apellido contengan solo letras
+  if (!/^[A-Za-z]+$/.test(apellido) || !/^[A-Za-z]+$/.test(nombre)) {
+    resultadoElement.textContent = "El nombre y el apellido deben contener solo letras.";
+    return;
+  }
   // Crear una instancia de la clase Persona con los datos ingresados
   const persona = new Persona(apellido, nombre, dni);
   // Cargar el certificado en el array
@@ -59,11 +64,13 @@ function validarCarga() {
   nombreInput.value = "";
   dniInput.value = "";
   tipoCertificadoInput.selectedIndex = 0; // Restablecer la selección al primer índice (opción predeterminada)
-  // Mostrar los certificados cargados
   mostrarCertificados();
 }
 
 function cargarCertificado(tipo, persona) {
+  persona.apellido = formatearCadena(persona.apellido);
+  persona.nombre = formatearCadena(persona.nombre);
+  tipo = formatearCadena(tipo);
   // Agregar el certificado al array de certificados
   certificados.push({ tipo: tipo, persona: persona });
 
@@ -80,24 +87,79 @@ function mostrarSuccessAlert() {
 
 }
 
+function contarCertificadosPorTipo() {
+  const conteo = {};
+  
+  certificados.forEach((certificado) => {
+    const tipo = certificado.tipo;
+    if (conteo[tipo]) {
+      conteo[tipo]++;
+    } else {
+      conteo[tipo] = 1;
+    }
+  });
+  
+  return conteo;
+}
+
 // Función para contar la cantidad de certificados cargados
 function informe() {
+  const conteo = contarCertificadosPorTipo();
+  let conteoHTML = "<h3>Certificados por Tipo:</h3><ul>";
+  
+  for (const tipo in conteo) {
+    conteoHTML += `<li>${tipo}: ${conteo[tipo]}</li>`;
+  }
+  conteoHTML += "</ul>";
   const cantidadCertificados = certificados.length;
-  cantidadCertificadosContainer.textContent = `Cantidad de certificados cargados: ${cantidadCertificados}`;
+  // Agrega el conteo por tipo y la cantidad total al contenedor
+  cantidadCertificadosContainer.innerHTML = conteoHTML + `<p>Cantidad de certificados cargados: ${cantidadCertificados}</p>`;
 }
 
 function mostrarCertificados() {
-  // Lógica para mostrar los certificados en la página
-  const certificadosContainer = document.getElementById("certificadosContainer");
-
-  // Limpia el contenido existente en el contenedor
-  certificadosContainer.innerHTML = "";
-
-  // Recorre los certificados y muestra cada uno
-  certificados.forEach((certificado, index) => {
-    const certificadoElement = document.createElement("div");
-    certificadoElement.textContent = `Certificado ${index + 1}: ${certificado.tipo}, ${certificado.persona.apellido} ${certificado.persona.nombre}, DNI: ${certificado.persona.dni}`;
-    certificadosContainer.appendChild(certificadoElement);
-  });
+ // Lógica para mostrar los certificados en una tabla de Bootstrap
+ const certificadosContainer = document.getElementById("certificadosContainer");
+ // Limpia el contenido existente en el contenedor
+ certificadosContainer.innerHTML = "";
+ if (certificados.length === 0) {
+  certificadosContainer.textContent = "No hay certificados cargados.";
+  } else {
+  // Crear una tabla de Bootstrap con la clase "table" y "table-hover"
+  const table = document.createElement("table");
+  table.classList.add("table", "table-hover"); // Agregar las clases de Bootstrap
+  // Crear el encabezado de la tabla
+  const thead = document.createElement("thead");
+  const headerRow = document.createElement("tr");
+  const headers = ["#", "Tipo", "Apellido", "Nombre", "DNI"];
+  headers.forEach((headerText) => {
+    const th = document.createElement("th");
+    th.textContent = headerText;
+    headerRow.appendChild(th);
+    });
   
+  thead.appendChild(headerRow);
+  // Crear el cuerpo de la tabla
+  const tbody = document.createElement("tbody");
+  // Recorre los certificados y agrega filas a la tabla
+  certificados.forEach((certificado, index) => {
+    const newRow = document.createElement("tr");
+        newRow.innerHTML = `
+            <th scope="row">${index + 1}</th>
+            <td>${certificado.persona.apellido}</td>
+            <td>${certificado.persona.nombre}</td>
+            <td>${certificado.persona.dni}</td>
+            <td>${certificado.tipo}</td>
+        `;
+        tbody.appendChild(newRow);
+    });
+  
+  table.appendChild(thead);
+  table.appendChild(tbody);
+  certificadosContainer.appendChild(table);
+  }
 }
+  
+function formatearCadena(texto) {
+  return texto.charAt(0).toUpperCase() + texto.slice(1).toLowerCase();
+  }
+  

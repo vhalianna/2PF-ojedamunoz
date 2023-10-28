@@ -70,6 +70,8 @@ select {
     text-align: center; /* Alinear el contenido al centro */
     list-style-type: none; /* Quitar los puntos de la lista */
     padding-left: 0; /* Quitar el padding izquierdo de la lista */
+    max-height: 200px; /* Establece una altura máxima para el contenedor */
+    overflow-y: scroll; /* Agrega una barra de desplazamiento vertical si el contenido excede la altura máxima */
 }
 
 footer {
@@ -96,4 +98,14 @@ footer a:hover {
   footer:hover {
     background-color: #555; /* Cambiar el color de fondo al pasar el mouse */
   }
-  
+
+  #imagenHeader {
+    max-height: 60px; /* Establece la altura máxima deseada */
+    width: auto; /* Ajusta el ancho de manera proporcional */
+    vertical-align: middle; /* Alinea verticalmente la imagen con el texto */
+}
+
+.titulo {
+    text-align: left;
+}
+
