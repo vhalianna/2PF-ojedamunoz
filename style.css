@@ -79,6 +79,8 @@ footer {
     background-color: #333;
     color: #fff;
     font-size: 14px;
+    /* Animación de cambio de color de fondo al pasar el mouse en el footer */
+    transition: background-color 0.3s; /* Transición de color de fondo */
 }
 
 footer a {
@@ -88,5 +90,10 @@ footer a {
 
 footer a:hover {
     text-decoration: underline;
+    color: #ff5733;
 }
-
+  
+  footer:hover {
+    background-color: #555; /* Cambiar el color de fondo al pasar el mouse */
+  }
+  
